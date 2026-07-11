@@ -99,3 +99,44 @@
   flex: 1;
   padding: 50px;
 }
+.dashboard-subtitle{
+    margin-top:10px;
+    margin-bottom:40px;
+    color:#94a3b8;
+    font-size:18px;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.dashboard-card{
+    background:#1e293b;
+    border-radius:15px;
+    padding:25px;
+    transition:.3s;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-8px);
+}
+
+.dashboard-icon{
+    font-size:45px;
+    margin-bottom:20px;
+}
+
+.dashboard-card h3{
+    margin-bottom:12px;
+}
+
+.dashboard-card p{
+    color:#cbd5e1;
+    margin-bottom:25px;
+}
+
+.dashboard-card button{
+    width:100%;
+}n
