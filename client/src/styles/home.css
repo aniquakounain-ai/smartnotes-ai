@@ -1,0 +1,132 @@
+.hero {
+  text-align: center;
+  padding: 100px 20px 70px;
+}
+
+.hero h1 {
+  font-size: 56px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: auto;
+  color: #cbd5e1;
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+.buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.buttons button {
+  padding: 14px 34px;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.buttons button:first-child {
+  background: #3b82f6;
+  color: white;
+}
+
+.buttons button:first-child:hover {
+  background: #2563eb;
+}
+
+.secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid #3b82f6 !important;
+}
+
+.secondary:hover {
+  background: #3b82f6;
+}
+
+.features {
+  max-width: 1200px;
+  margin: 70px auto;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 25px;
+  padding: 0 30px;
+}
+
+.card {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 30px;
+  transition: .3s;
+  border: 1px solid #334155;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.card h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #cbd5e1;
+}
+
+.cta {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.cta h2 {
+  font-size: 36px;
+  color: white;
+}
+
+.cta p {
+  color: #94a3b8;
+  margin: 20px 0;
+}
+
+.cta button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.cta button:hover {
+  background: #2563eb;
+}
+
+@media (max-width: 900px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}

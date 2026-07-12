@@ -1,8 +1,7 @@
-export default function Navbar() {
-  return null;
-}
-export default function Sidebar() {
-  return null;
-}
-export default function MainLayout() {
-  return null;
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "http://localhost:5000/api",
+});
+
+export default api;

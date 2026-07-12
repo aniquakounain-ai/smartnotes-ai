@@ -1,3 +1,4 @@
+import "../styles/home.css";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 

@@ -1,3 +1,4 @@
+import "../styles/dashboard.css";
 import Sidebar from "../components/Sidebar";
 import DashboardCard from "../components/DashboardCard";
 
@@ -19,24 +20,28 @@ export default function Dashboard() {
             icon="📝"
             title="AI Notes"
             description="Generate smart notes from any topic."
+            link="/ai-notes"
           />
 
           <DashboardCard
             icon="📄"
             title="PDF Summary"
             description="Upload PDFs and get instant summaries."
+            link="#"
           />
 
           <DashboardCard
             icon="🧠"
             title="Flashcards"
             description="Create flashcards automatically."
+            link="#"
           />
 
           <DashboardCard
             icon="❓"
             title="Quiz Generator"
             description="Generate quizzes for practice."
+            link="#"
           />
 
         </div>

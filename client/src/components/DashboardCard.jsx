@@ -1,4 +1,11 @@
-export default function DashboardCard({ icon, title, description }) {
+import { Link } from "react-router-dom";
+
+export default function DashboardCard({
+  icon,
+  title,
+  description,
+  link,
+}) {
   return (
     <div className="dashboard-card">
       <div className="dashboard-icon">{icon}</div>
@@ -7,7 +14,9 @@ export default function DashboardCard({ icon, title, description }) {
 
       <p>{description}</p>
 
-      <button>Open</button>
+      <Link to={link}>
+        <button>Open</button>
+      </Link>
     </div>
   );
 }
