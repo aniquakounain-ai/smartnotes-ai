@@ -27,7 +27,7 @@ Use headings and bullet points.
 `;
 
     const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-3.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         contents: [
           {
@@ -53,7 +53,7 @@ Use headings and bullet points.
 
     res.status(500).json({
       success: false,
-      message: "Gemini request failed.",
+      message: "Unable to generate notes.",
     });
   }
 }

@@ -10,25 +10,22 @@ export default function AINotes() {
   const [loading, setLoading] = useState(false);
 
   async function handleGenerate() {
-    if (!topic.trim()) {
-      alert("Please enter a topic.");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const result = await generateNotes(topic, style, length);
-
-      setNotes(result);
-    } catch (error) {
-      console.error(error);
-      alert("Failed to connect to backend.");
-    } finally {
-      setLoading(false);
-    }
+  if (!topic.trim()) {
+    alert("Please enter a topic.");
+    return;
   }
 
+  setLoading(true);
+
+  try {
+    const result = await generateNotes(topic, style, length);
+    setNotes(result);
+  } catch (err) {
+    alert(err.message);
+  }
+
+  setLoading(false);
+}
   return (
     <div className="dashboard-content">
       <h1>📝 AI Notes Generator</h1>
