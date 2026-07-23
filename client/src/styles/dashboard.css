@@ -148,27 +148,441 @@
 
 .notes-box {
   margin-top: 30px;
-  padding: 25px;
+  padding: 30px;
 
   background: #1f2937;
+  color: white;
 
   border-radius: 15px;
-
-  color: white;
 
   line-height: 1.8;
 
   white-space: pre-wrap;
-
-  word-wrap: break-word;
   overflow-wrap: anywhere;
 
-  overflow-x: auto;
+  max-height: 650px;
   overflow-y: auto;
 
-  max-height: 600px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.notes-box h1,
+.notes-box h2,
+.notes-box h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.notes-box ul {
+  padding-left: 20px;
+}
+
+.notes-box li {
+  margin-bottom: 8px;
+}
+
+.notes-box p {
+  margin-bottom: 15px;
+}
+.copy-btn {
+  margin-top: 20px;
+  margin-bottom: 15px;
+
+  padding: 12px 24px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #3b82f6;
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.copy-btn:hover {
+  background: #2563eb;
+}
+.notes-title{
+    margin-top:40px;
+    margin-bottom:20px;
+    font-size:30px;
+    font-weight:700;
+}
+
+.study-toolbar{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.study-btn{
+    background:#5b7cfa;
+    color:white;
+    border:none;
+    padding:16px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.study-btn:hover{
+    transform:translateY(-3px);
+    background:#4569f2;
+}
+.flashcards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.flashcard {
+  perspective: 1000px;
+  cursor: pointer;
+  height: 220px;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 16px;
+  padding: 25px;
+
+  box-sizing: border-box;
+
+  backface-visibility: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+.flashcard-front {
+  background: white;
+}
+
+.flashcard-back {
+  background: linear-gradient(135deg,#2563eb,#4f46e5);
+  color: white;
+
+  transform: rotateY(180deg);
+}
+
+.flashcard:hover {
+  transform: translateY(-5px);
+}
+
+.flashcard-front h3,
+.flashcard-back h3 {
+  margin-bottom: 15px;
+}
+
+.flashcard-front p,
+.flashcard-back p {
+  text-align: center;
+  line-height: 1.6;
+}
+
+.flashcard small {
+  margin-top: 20px;
+  opacity: .8;
+}
+/* ===========================
+   STUDY MODE FLASHCARDS
+=========================== */
+
+.progress-container {
+  width: 100%;
+  max-width: 700px;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  margin: 20px auto 35px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#3b82f6,#2563eb);
+  transition: width .4s ease;
+}
+
+.study-card {
+  width: 700px;
+  max-width: 95%;
+  height: 380px;
+
+  margin: auto;
+
+  perspective: 1200px;
+
+  cursor: pointer;
+}
+
+.study-card-inner {
+
+  position: relative;
 
   width: 100%;
+  height: 100%;
 
-  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform .7s;
+
+  transform-style: preserve-3d;
+
+}
+
+.study-card.flipped .study-card-inner {
+
+  transform: rotateY(180deg);
+
+}
+
+.study-card-front,
+.study-card-back {
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 20px;
+
+  padding: 35px;
+
+  box-sizing: border-box;
+
+  backface-visibility: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+
+}
+
+.study-card-front{
+
+  background:white;
+
+}
+
+.study-card-back{
+
+  background:#2563eb;
+
+  color:white;
+
+  transform:rotateY(180deg);
+
+}
+
+.study-card h2{
+
+  margin-bottom:20px;
+
+}
+
+.study-card p{
+
+  font-size:20px;
+
+  line-height:1.7;
+
+}
+
+.study-card small{
+
+  margin-top:25px;
+
+  opacity:.8;
+
+}
+
+.study-navigation{
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:20px;
+
+  margin-top:35px;
+
+}
+
+.study-navigation button{
+
+  min-width:140px;
+
+}
+
+.study-navigation button:disabled{
+
+  opacity:.4;
+
+  cursor:not-allowed;
+
+}
+
+@media (max-width:768px){
+
+.study-card{
+
+height:320px;
+
+}
+
+.study-card p{
+
+font-size:17px;
+
+}
+
+}
+/* ===========================
+   FLASHCARD STUDY MODE
+=========================== */
+
+.progress-container {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 25px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#2563eb,#06b6d4);
+  transition: width .4s ease;
+}
+
+.study-card {
+  width: 100%;
+  max-width: 700px;
+  height: 380px;
+
+  margin: 40px auto;
+
+  perspective: 1200px;
+
+  cursor: pointer;
+}
+
+.study-card-inner {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  transition: transform .7s;
+
+  transform-style: preserve-3d;
+}
+
+.study-card.flipped .study-card-inner {
+  transform: rotateY(180deg);
+}
+
+.study-card-front,
+.study-card-back {
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  backface-visibility: hidden;
+
+  border-radius: 18px;
+
+  padding: 35px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+  box-shadow: 0 15px 35px rgba(0,0,0,.12);
+}
+
+.study-card-front {
+
+  background: white;
+}
+
+.study-card-back {
+
+  background: #2563eb;
+
+  color: white;
+
+  transform: rotateY(180deg);
+}
+
+.study-card h2{
+  margin-bottom:20px;
+}
+
+.study-card p{
+  font-size:20px;
+  line-height:1.7;
+}
+
+.study-card small{
+  margin-top:30px;
+  opacity:.75;
+}
+
+.study-navigation{
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:20px;
+
+  margin-top:30px;
+
+  flex-wrap:wrap;
 }

@@ -11,7 +11,7 @@ export default function Dashboard() {
         <h1>👋 Welcome Back!</h1>
 
         <p className="dashboard-subtitle">
-          Choose what you want to study today.
+          Your AI-powered study companion. Choose a tool to start learning.
         </p>
 
         <div className="dashboard-grid">
@@ -19,29 +19,50 @@ export default function Dashboard() {
           <DashboardCard
             icon="📝"
             title="AI Notes"
-            description="Generate smart notes from any topic."
+            description="Generate board-specific notes instantly."
             link="/ai-notes"
+          />
+
+          <DashboardCard
+            icon="📚"
+            title="My Notes"
+            description="View all your saved AI notes."
+            link="/my-notes"
+          />
+
+          <DashboardCard
+            icon="🧠"
+            title="AI Flashcards"
+            description="Revise chapters using smart flashcards."
+            link="/"
+          />
+
+          <DashboardCard
+            icon="❓"
+            title="AI Quiz"
+            description="Practice with AI-generated MCQs."
+            link="/quiz"
           />
 
           <DashboardCard
             icon="📄"
             title="PDF Summary"
             description="Upload PDFs and get instant summaries."
-            link="#"
+            link="/pdf-summary"
           />
 
           <DashboardCard
-            icon="🧠"
-            title="Flashcards"
-            description="Create flashcards automatically."
-            link="#"
+            icon="⭐"
+            title="Saved Notes"
+            description="Access your saved study notes."
+            link="/saved-notes"
           />
 
           <DashboardCard
-            icon="❓"
-            title="Quiz Generator"
-            description="Generate quizzes for practice."
-            link="#"
+            icon="⚙️"
+            title="Settings"
+            description="Customize SmartNotes AI."
+            link="/settings"
           />
 
         </div>

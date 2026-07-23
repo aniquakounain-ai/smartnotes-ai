@@ -1,16 +1,96 @@
-import api from "./api";
+export async function generateNotes(
+  board,
+  studentClass,
+  subject,
+  chapter,
+  style,
+  length
+) {
+  const response = await fetch(
+    "http://localhost:5000/api/ai/generate-notes",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        board,
+        studentClass,
+        subject,
+        chapter,
+        style,
+        length,
+      }),
+    }
+  );
 
-export async function generateNotes(topic, style, length) {
-  try {
-    const response = await api.post("/ai/generate-notes", {
-      topic,
-      style,
-      length,
-    });
+  const data = await response.json();
 
-    return response.data.notes;
-  } catch (error) {
-    console.error("AI Service Error:", error);
-    throw error;
+  if (!data.success) {
+    throw new Error(data.message);
   }
+
+  return data.notes;
+}
+
+export async function generateFlashcards(
+  board,
+  studentClass,
+  subject,
+  chapter
+) {
+  const response = await fetch(
+    "http://localhost:5000/api/ai/generate-flashcards",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        board,
+        studentClass,
+        subject,
+        chapter,
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data.cards;
+}
+
+export async function getNotes() {
+  const response = await fetch(
+    "http://localhost:5000/api/ai/notes"
+  );
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data.notes;
+}
+
+export async function deleteNote(id) {
+  const response = await fetch(
+    `http://localhost:5000/api/ai/notes/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data;
 }

@@ -16,6 +16,10 @@ export default function Sidebar() {
           📝 AI Notes
         </Link>
 
+        <Link to="/my-notes">
+          📚 My Notes
+        </Link>
+
         <Link to="/pdf-summary">
           📄 PDF Summary
         </Link>
