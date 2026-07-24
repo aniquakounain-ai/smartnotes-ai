@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import Confetti from "react-confetti";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import {
+  CircularProgressbar,
+  buildStyles,
+} from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 import Sidebar from "../components/Sidebar";
@@ -21,7 +24,6 @@ export default function Quiz() {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  // 10 minute timer
   const QUIZ_DURATION = 600;
   const [timeLeft, setTimeLeft] = useState(QUIZ_DURATION);
 
@@ -44,11 +46,9 @@ export default function Quiz() {
     }, 1000);
 
     return () => clearInterval(timer);
-
   }, [quiz, submitted]);
 
   async function handleGenerate() {
-
     if (!chapter) {
       alert("Please select a chapter.");
       return;
@@ -57,7 +57,6 @@ export default function Quiz() {
     setLoading(true);
 
     try {
-
       const result = await generateQuiz(
         board,
         studentClass,
@@ -72,63 +71,48 @@ export default function Quiz() {
       setTimeLeft(QUIZ_DURATION);
 
     } catch (error) {
-
       alert(error.message);
-
     } finally {
-
       setLoading(false);
-
     }
   }
 
   function handleOptionChange(option) {
-
     setAnswers((prev) => ({
       ...prev,
       [currentQuestion]: option,
     }));
-
   }
 
   function nextQuestion() {
-
     if (currentQuestion < quiz.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
     }
-
   }
 
   function previousQuestion() {
-
     if (currentQuestion > 0) {
       setCurrentQuestion((prev) => prev - 1);
     }
-
   }
 
   function calculateScore() {
-
     let score = 0;
 
     quiz.forEach((q, index) => {
-
       if (answers[index] === q.answer) {
         score++;
       }
-
     });
 
     return score;
   }
 
   function resetQuiz() {
-
     setAnswers({});
     setSubmitted(false);
     setCurrentQuestion(0);
     setTimeLeft(QUIZ_DURATION);
-
   }
 
   const progress =
@@ -140,8 +124,12 @@ export default function Quiz() {
 
   const finalScore = calculateScore();
 
-  const minutesTaken = Math.floor((QUIZ_DURATION - timeLeft) / 60);
-  const secondsTaken = (QUIZ_DURATION - timeLeft) % 60;
+  const minutesTaken = Math.floor(
+    (QUIZ_DURATION - timeLeft) / 60
+  );
+
+  const secondsTaken =
+    (QUIZ_DURATION - timeLeft) % 60;
 
   let badge = "";
   let badgeColor = "";
@@ -159,9 +147,8 @@ export default function Quiz() {
     badge = "📚 Keep Practicing";
     badgeColor = "#888";
   }
-
   return (
-        <div className="dashboard">
+    <div className="dashboard">
 
       <Sidebar />
 
@@ -242,7 +229,10 @@ export default function Quiz() {
           <option value="">Select Chapter</option>
 
           {chapters.map((item) => (
-            <option key={item} value={item}>
+            <option
+              key={item}
+              value={item}
+            >
               {item}
             </option>
           ))}
@@ -261,9 +251,7 @@ export default function Quiz() {
         </button>
 
         <br /><br />
-
         {quiz.length > 0 && !submitted && (
-
           <>
 
             <div className="flashcard">
@@ -273,8 +261,8 @@ export default function Quiz() {
                   textAlign: "right",
                   color: "#ff5722",
                   fontWeight: "bold",
-                  marginBottom: "15px",
                   fontSize: "18px",
+                  marginBottom: "15px",
                 }}
               >
                 ⏱ {Math.floor(timeLeft / 60)}:
@@ -338,52 +326,53 @@ export default function Quiz() {
 
             </div>
 
-            <br />
-
-            <div className="study-navigation">
-
-              <button
-                className="study-btn"
-                onClick={previousQuestion}
-                disabled={currentQuestion === 0}
-              >
-                ⬅ Previous
-              </button>
-
-              {currentQuestion === quiz.length - 1 ? (
-
-                <button
-                  className="generate-btn"
-                  disabled={
-                    answers[currentQuestion] === undefined
-                  }
-                  onClick={() => setSubmitted(true)}
-                >
-                  ✅ Submit Quiz
-                </button>
-
-              ) : (
+            <div
+              style={{
+                clear: "both",
+                width: "100%",
+                marginTop: "30px",
+              }}
+            >
+              <div className="study-navigation">
 
                 <button
                   className="study-btn"
-                  disabled={
-                    answers[currentQuestion] === undefined
-                  }
-                  onClick={nextQuestion}
+                  onClick={previousQuestion}
+                  disabled={currentQuestion === 0}
                 >
-                  Next ➡
+                  ⬅ Previous
                 </button>
 
-              )}
+                {currentQuestion === quiz.length - 1 ? (
 
-            </div>
+                  <button
+                    className="generate-btn"
+                    disabled={Object.keys(answers).length !== quiz.length}
+                    onClick={() => setSubmitted(true)}
+                  >
+                    ✅ Submit Quiz
+                  </button>
+
+                ) : (
+
+                  <button
+                    className="study-btn"
+                    disabled={answers[currentQuestion] === undefined}
+                    onClick={nextQuestion}
+                  >
+                    Next ➡
+                  </button>
+
+                )}
+
+              </div>
+            </div> 
 
           </>
-
         )}
-
         {submitted && (
-                    <>
+          <div className="notes-box">
+
             {finalScore >= 9 && (
               <Confetti
                 recycle={false}
@@ -391,113 +380,107 @@ export default function Quiz() {
               />
             )}
 
-            <div className="notes-box">
+            <h2>🎉 Quiz Completed!</h2>
 
-              <h2>🎉 Quiz Completed!</h2>
+            <div
+              style={{
+                width: "180px",
+                margin: "25px auto",
+              }}
+            >
+              <CircularProgressbar
+                value={(finalScore / quiz.length) * 100}
+                text={`${Math.round(
+                  (finalScore / quiz.length) * 100
+                )}%`}
+                styles={buildStyles({
+                  textSize: "16px",
+                  pathColor: "#4CAF50",
+                  textColor: "#222",
+                  trailColor: "#ddd",
+                })}
+              />
+            </div>
 
-              <div
+            <h2 style={{ textAlign: "center" }}>
+              Score: {finalScore} / {quiz.length}
+            </h2>
+
+            <div
+              style={{
+                marginTop: "20px",
+                textAlign: "center",
+              }}
+            >
+              <h2
                 style={{
-                  width: "180px",
-                  margin: "25px auto",
+                  color: badgeColor,
+                  fontSize: "32px",
                 }}
               >
-                <CircularProgressbar
-                  value={(finalScore / quiz.length) * 100}
-                  text={`${Math.round(
+                {badge}
+              </h2>
+
+              <p>Achievement Unlocked!</p>
+            </div>
+
+            <hr style={{ margin: "25px 0" }} />
+
+            <h2 style={{ textAlign: "center" }}>
+              📊 Performance Analytics
+            </h2>
+
+            <div className="analytics-grid">
+
+              <div className="analytics-card">
+                <h3>🟢 Correct</h3>
+                <p>{finalScore}</p>
+              </div>
+
+              <div className="analytics-card">
+                <h3>🔴 Wrong</h3>
+                <p>{quiz.length - finalScore}</p>
+              </div>
+
+              <div className="analytics-card">
+                <h3>🎯 Accuracy</h3>
+                <p>
+                  {Math.round(
                     (finalScore / quiz.length) * 100
-                  )}%`}
-                  styles={buildStyles({
-                    textSize: "16px",
-                    pathColor: "#4CAF50",
-                    textColor: "#222",
-                    trailColor: "#ddd",
-                  })}
-                />
+                  )}%
+                </p>
               </div>
 
-              <h2 style={{ textAlign: "center" }}>
-                Score: {finalScore} / {quiz.length}
-              </h2>
-
-              <div
-                style={{
-                  textAlign: "center",
-                  marginTop: "20px",
-                }}
-              >
-                <h2
-                  style={{
-                    color: badgeColor,
-                    fontSize: "34px",
-                  }}
-                >
-                  {badge}
-                </h2>
-
-                <p>Achievement Unlocked!</p>
+              <div className="analytics-card">
+                <h3>⏱ Time Taken</h3>
+                <p>
+                  {minutesTaken}m {secondsTaken}s
+                </p>
               </div>
-
-              <hr style={{ margin: "25px 0" }} />
-
-              <h2 style={{ textAlign: "center" }}>
-                📊 Performance Analytics
-              </h2>
-
-              <div className="analytics-grid">
-
-                <div className="analytics-card">
-                  <h3>🟢 Correct</h3>
-                  <p>{finalScore}</p>
-                </div>
-
-                <div className="analytics-card">
-                  <h3>🔴 Wrong</h3>
-                  <p>{quiz.length - finalScore}</p>
-                </div>
-
-                <div className="analytics-card">
-                  <h3>🎯 Accuracy</h3>
-                  <p>
-                    {Math.round(
-                      (finalScore / quiz.length) * 100
-                    )}
-                    %
-                  </p>
-                </div>
-
-                <div className="analytics-card">
-                  <h3>⏱ Time Taken</h3>
-                  <p>
-                    {minutesTaken}m {secondsTaken}s
-                  </p>
-                </div>
-
-              </div>
-
-              <br />
-
-              <button
-                className="generate-btn"
-                onClick={resetQuiz}
-              >
-                🔄 Try Again
-              </button>
-
-              <button
-                className="copy-btn"
-                onClick={handleGenerate}
-                style={{ marginLeft: "10px" }}
-              >
-                ✨ Generate New Quiz
-              </button>
 
             </div>
 
-          </>
+            <br />
+
+            <button
+              className="generate-btn"
+              onClick={resetQuiz}
+            >
+              🔄 Try Again
+            </button>
+
+            <button
+              className="copy-btn"
+              onClick={handleGenerate}
+              style={{ marginLeft: "10px" }}
+            >
+              ✨ Generate New Quiz
+            </button>
+
+          </div>
         )}
 
       </main>
-
     </div>
   );
 }
