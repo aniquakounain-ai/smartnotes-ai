@@ -1,3 +1,4 @@
+import Note from "../models/Note.js";
 import axios from "axios";
 import dotenv from "dotenv";
 
@@ -5,25 +6,52 @@ dotenv.config();
 
 export async function generateNotes(req, res) {
   try {
-    const { topic, style, length } = req.body;
+    const { board, studentClass, subject, chapter, style, length } = req.body;
 
     const prompt = `
-You are an expert teacher.
+You are an expert ${board} teacher with years of experience preparing students for board examinations.
 
-Create structured study notes.
+Generate HIGH-QUALITY study notes.
 
-Topic: ${topic}
+Board: ${board}
+Class: ${studentClass}
+Subject: ${subject}
+Chapter: ${chapter}
+
 Style: ${style}
 Length: ${length}
 
-Include:
-- Title
-- Introduction
-- Important Concepts
-- Key Points
-- Summary
+The notes MUST follow this structure:
 
-Use headings and bullet points.
+# ${chapter}
+
+## 📖 Chapter Overview
+Explain the chapter in simple language suitable for Class ${studentClass} students.
+
+## 🎯 Learning Objectives
+List what students should understand after studying this chapter.
+
+## 📚 Important Definitions
+Provide important definitions in bullet points.
+
+## ⭐ Key Concepts
+Explain every major concept clearly using headings and bullet points.
+
+## 📝 Important Board Exam Points
+Mention facts and concepts frequently asked in board examinations.
+
+## ⚠ Common Mistakes
+Mention common mistakes students make while answering board questions.
+
+## 📌 Quick Revision Summary
+Summarize the chapter in 8–10 important bullet points.
+
+Formatting Rules:
+- Use Markdown headings.
+- Use bullet points wherever possible.
+- Keep the language simple.
+- Make it exam-oriented.
+- Do NOT include unnecessary information.
 `;
 
     const response = await axios.post(
@@ -38,22 +66,64 @@ Use headings and bullet points.
             ],
           },
         ],
-      }
+      },
     );
 
-    const notes = response.data.candidates[0].content.parts[0].text;
+    const notes = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!notes) {
+      return res.status(500).json({
+        success: false,
+        message: "No notes were generated.",
+      });
+    }
+
+    // Save notes to MongoDB
+    const savedNote = await Note.create({
+      topic: chapter,
+      notes,
+      style,
+      length,
+    });
+
+    res.json({
+      success: true,
+      notes,
+      savedNote,
+    });
+  } catch (error) {
+    console.error("Gemini Error:");
+    console.error(error.response?.data || error.message);
+
+    const status = error.response?.status;
+
+    if (status === 503) {
+      return res.status(503).json({
+        success: false,
+        message: "Gemini is busy. Please try again in a minute.",
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      message: "Unable to generate notes.",
+    });
+  }
+}
+export async function getNotes(req, res) {
+  try {
+    const notes = await Note.find().sort({
+      createdAt: -1,
+    });
 
     res.json({
       success: true,
       notes,
     });
   } catch (error) {
-    console.error("Gemini Error:");
-    console.error(error.response?.data || error.message);
-
     res.status(500).json({
       success: false,
-      message: "Unable to generate notes.",
+      message: "Unable to fetch notes.",
     });
   }
 }
