@@ -1,7 +1,7 @@
 export async function saveNote(noteData) {
 
   const response = await fetch(
-    "http://localhost:5000/api/notes",
+    "https://smartnotes-ai-del3.onrender.com/api/notes",
     {
       method: "POST",
       headers: {

@@ -6,7 +6,7 @@ export async function generateFlashcards(
 ) {
   try {
     const response = await fetch(
-      "http://localhost:5000/api/ai/generate-flashcards",
+      "https://smartnotes-ai-del3.onrender.com/api/ai/generate-flashcards",
       {
         method: "POST",
         headers: {

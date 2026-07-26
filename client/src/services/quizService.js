@@ -6,7 +6,7 @@ export async function generateQuiz(
 ) {
   try {
     const response = await fetch(
-      "http://localhost:5000/api/ai/generate-quiz",
+      "https://smartnotes-ai-del3.onrender.com/api/ai/generate-quiz",
       {
         method: "POST",
         headers: {

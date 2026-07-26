@@ -7,7 +7,7 @@ export async function generateNotes(
   length
 ) {
   const response = await fetch(
-    "http://localhost:5000/api/ai/generate-notes",
+    "https://smartnotes-ai-del3.onrender.com/api/ai/generate-notes",
     {
       method: "POST",
       headers: {
@@ -40,7 +40,7 @@ export async function generateFlashcards(
   chapter
 ) {
   const response = await fetch(
-    "http://localhost:5000/api/ai/generate-flashcards",
+    "https://smartnotes-ai-del3.onrender.com/api/ai/generate-flashcards",
     {
       method: "POST",
       headers: {
@@ -66,7 +66,7 @@ export async function generateFlashcards(
 
 export async function getNotes() {
   const response = await fetch(
-    "http://localhost:5000/api/ai/notes"
+    https://smartnotes-ai-del3.onrender.com/api/ai/notes"
   );
 
   const data = await response.json();
@@ -80,7 +80,7 @@ export async function getNotes() {
 
 export async function deleteNote(id) {
   const response = await fetch(
-    `http://localhost:5000/api/ai/notes/${id}`,
+    https://smartnotes-ai-del3.onrender.comk/api/ai/notes/${id}`,
     {
       method: "DELETE",
     }
