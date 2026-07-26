@@ -1,3 +1,4 @@
+import { saveNote } from "../services/noteService";
 import jsPDF from "jspdf";
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
@@ -94,6 +95,32 @@ export default function AINotes() {
     doc.save(
       `${board}_Class${studentClass}_${chapter.replace(/\s+/g, "_")}.pdf`
     );
+  }
+
+  async function handleSaveNote() {
+
+    if (!notes) {
+      alert("Generate notes first.");
+      return;
+    }
+
+    try {
+
+      await saveNote({
+        topic: chapter,
+        notes,
+        style,
+        length,
+      });
+
+      alert("✅ Notes saved successfully!");
+
+    } catch (error) {
+
+      alert(error.message);
+
+    }
+
   }
 
   return (
@@ -203,7 +230,9 @@ export default function AINotes() {
         onClick={handleGenerate}
         disabled={loading}
       >
-        {loading ? "Generating..." : "✨ Generate Notes"}
+        {loading
+          ? "Generating..."
+          : "✨ Generate Notes"}
       </button>
 
       <br />
@@ -233,7 +262,7 @@ export default function AINotes() {
           </button>
         </div>
       )}
-  
+
       {notes && (
         <>
           <h2 className="notes-title">
@@ -276,7 +305,7 @@ export default function AINotes() {
 
             <button
               className="study-btn"
-              onClick={() => alert("Save Notes coming soon!")}
+              onClick={handleSaveNote}
             >
               ⭐ Save
             </button>
