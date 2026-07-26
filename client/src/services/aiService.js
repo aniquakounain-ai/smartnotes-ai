@@ -66,8 +66,7 @@ export async function generateFlashcards(
 
 export async function getNotes() {
   const response = await fetch(
-    https://smartnotes-ai-del3.onrender.com/api/ai/notes"
-  );
+"https://smartnotes-ai-del3.onrender.com/api/ai/notes"  );
 
   const data = await response.json();
 
@@ -80,8 +79,7 @@ export async function getNotes() {
 
 export async function deleteNote(id) {
   const response = await fetch(
-    https://smartnotes-ai-del3.onrender.comk/api/ai/notes/${id}`,
-    {
+`https://smartnotes-ai-del3.onrender.com/api/ai/notes/${id}`,    {
       method: "DELETE",
     }
   );
